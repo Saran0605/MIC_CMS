@@ -2065,12 +2065,9 @@ if (isset($_POST['fdept'])) {
                     } else if (res.status == 500) {
                         $("#rejectModal").modal("hide");
                         $("#rejectForm")[0].reset();
-                        alert("Something went wrong. Please try again.");
                     }
                 },
-                error: function(xhr, status, error) {
-                    alert("An error occurred while processing your request.");
-                },
+                error: function(xhr, status, error) {},
             });
 
             sendRejectionMail(reject_id);
@@ -2187,9 +2184,7 @@ if (isset($_POST['fdept'])) {
 
 
 
-                    } else {
-                        alert("Failed to accept complaint");
-                    }
+                    } else {}
                 },
             });
 
@@ -2245,7 +2240,13 @@ if (isset($_POST['fdept'])) {
 
 
                     } else {
-                        alert("Failed to accept complaint");
+                        swal({
+                            title: "Error",
+                            text: "Something went wrong!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: null
+                        });
                     }
                 },
             });
@@ -2311,11 +2312,23 @@ if (isset($_POST['fdept'])) {
                     } else if (res.status == 500) {
                         $("#principalModal").modal("hide");
                         $("#principal_Form")[0].reset();
-                        alert("Something went wrong. Please try again.");
+                        swal({
+                            title: "Error",
+                            text: "Something went wrong!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: null
+                        });
                     }
                 },
                 error: function(xhr, status, error) {
-                    alert("An error occurred while processing your request.");
+                    swal({
+                        title: "Error",
+                        text: "An error occurred while processing your request.",
+                        icon: "error",
+                        button: "Ok",
+                        timer: null
+                    });
                 },
             });
         });
@@ -2347,10 +2360,7 @@ if (isset($_POST['fdept'])) {
                 },
                 success: function(response) {
                     var res = jQuery.parseJSON(response);
-                    console.log(res);
-                    if (res.status == 404) {
-                        alert(res.message);
-                    } else {
+                    if (res.status == 404) {} else {
                         //$('#student_id2').val(res.data.uid);
                         $("#id").text(res.data.id);
                         $("#type_of_problem").text(res.data.type_of_problem);
@@ -2389,23 +2399,31 @@ if (isset($_POST['fdept'])) {
                         $("#imageModal").modal("show");
                     } else {
                         // Handle case where no image is found
-                        alert(
-                            response.message ||
-                            "An error occurred while retrieving the image."
-                        );
+                        swal({
+                            title: "Error",
+                            text: "An Error Occurred while retreiving the image!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: null
+                        });
+
                     }
                 },
                 error: function(xhr, status, error) {
                     // Log the full error details for debugging
                     console.error("AJAX Error: ", xhr.responseText);
-                    alert(
-                        "An error occurred: " +
-                        error +
-                        "\nStatus: " +
-                        status +
-                        "\nDetails: " +
-                        xhr.responseText
-                    );
+                    swal({
+                        title: "Error",
+                        text: "An error occurred: " +
+                            error +
+                            "\nStatus: " +
+                            status +
+                            "\nDetails: " +
+                            xhr.responseText,
+                        icon: "error",
+                        button: "Ok",
+                        timer: null
+                    });
                 },
             });
         });
@@ -2443,17 +2461,28 @@ if (isset($_POST['fdept'])) {
                     success: function(response) {
                         var res = jQuery.parseJSON(response);
                         if (res.status == 200) {
-                            alert(res.message);
                             $("#principalQueryModal").modal("hide");
                             // Reload the table to reflect changes
                             $("#worker_table").load(location.href + " #worker_table");
                         } else {
-                            alert("Something went wrong. Please try again.");
+                            swal({
+                                title: "Error",
+                                text: "Something went wrong. Please try again.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                         }
                     },
                     error: function(xhr, status, error) {
                         console.error("Error:", error);
-                        alert("Something went wrong. Please try again.");
+                        swal({
+                                title: "Error",
+                                text: "Something went wrong. Please try again.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                     },
                 });
             });
@@ -2475,16 +2504,13 @@ if (isset($_POST['fdept'])) {
                 },
                 success: function(response) {
                     var res = jQuery.parseJSON(response);
-                    console.log(res);
                     if (res.status == 500) {
-                        alert(res.message);
                     } else {
                         //$('#student_id2').val(res.data.uid);
                         $("#ffeed").val(res.data.feedback)
                         $("#exampleModal").modal("show");
 
                         var nu = res.data.rating;
-                        console.log(nu);
 
                         if (!isNaN(nu) && nu > 0) {
                             const stars1 = document.querySelectorAll("#star-rating1 span");
@@ -2522,7 +2548,13 @@ if (isset($_POST['fdept'])) {
                 var reassign_deadline = $("#reassign_deadline").val(); // Get the selected deadline
 
                 if (!reassign_deadline) {
-                    alert("Please select a deadline date.");
+                    swal({
+                                title: "Error",
+                                text: "Please select a deadline date.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                     return;
                 }
 
@@ -2568,11 +2600,23 @@ if (isset($_POST['fdept'])) {
                     success: function(response) {
                         var res = jQuery.parseJSON(response);
                         if (res.status == 500) {
-                            alert(res.message);
+                            swal({
+                                title: "Error",
+                                text: "Something went wrong. Please try again.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                         }
                     },
                     error: function() {
-                        alert("An error occurred while updating the status.");
+                        swal({
+                                title: "Error",
+                                text: "An error occured while updating the status",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                     }
                 });
             }
@@ -2594,7 +2638,13 @@ if (isset($_POST['fdept'])) {
                     var res = jQuery.parseJSON(response);
                     console.log(res);
                     if (res.status == 500) {
-                        alert(res.message);
+                        swal({
+                                title: "Error",
+                                text: "Something went wrong. Please try again.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                     } else {
                         $("#feedback").text(res.data.feedback);
                     }
@@ -2623,8 +2673,14 @@ if (isset($_POST['fdept'])) {
                         $("#afterImageModal").modal("show");
                     } else {
                         // Handle case where no image is found
-                        alert(response.message ||
-                            "An error occurred while retrieving the image.");
+                        swal({
+                                title: "Error",
+                                text: "An error occurred while retrieving the image.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                        
                     }
                 },
                 error: function(xhr, status, error) {
@@ -2752,11 +2808,23 @@ if (isset($_POST['fdept'])) {
 
 
                     } else {
-                        alert("Error");
+                        swal({
+                                title: "Error",
+                                text: "Error!",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                     }
                 },
                 error: function(xhr, status, error) {
-                    alert("An error occurred: " + error);
+                    swal({
+                                title: "Error",
+                                text: "An error occurred!",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                 }
             });
         })
@@ -2822,11 +2890,23 @@ if (isset($_POST['fdept'])) {
                         // Display success message
                     } else if (res.status == 500) {
                         $("#DoneModal").modal("hide");
-                        alert(res.message);
+                        swal({
+                                title: "Error",
+                                text: "An error occurred!",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                     }
                 },
                 error: function(xhr, status, error) {
-                    alert("An error occurred while processing your request.");
+                    swal({
+                                title: "Error",
+                                text: "An error occurred while processing your request.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
                 },
             });
         });
@@ -3017,7 +3097,13 @@ if (isset($_POST['fdept'])) {
                     var res = jQuery.parseJSON(response);
                     console.log(response);
                     if (res.status == 404) {
-                        alert("something went wrong!!");
+                        swal({
+                            title: "Warning!",
+                            text: "something went wrong!!",
+                            icon: "warning",
+                            button: "Ok",
+                            timer: null
+                        });
                     } else {
                         $("#partiallyReason").text(res.data.reason);
                         $("#partially_reason").modal("show");
