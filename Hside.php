@@ -289,8 +289,8 @@
         </a>
 
         <a href="cms_hod.php" class="menu-item">
-            <i class="fas fa-comments icon-feedback"></i>
-            <span>Complaint</span>
+            <i class="fas fa-exclamation-triangle text-danger"></i>
+            <span>Greivances</span>
         </a>
 
         <a href="pwd.php" class="menu-item">

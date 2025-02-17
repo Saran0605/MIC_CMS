@@ -343,7 +343,7 @@ $row_count11 = mysqli_num_rows($result11);
 
 <body>
     <!-- Sidebar -->
-    <?php include 'Hside.php'; ?>
+    <?php include 'side.php'; ?>
 
     <!-- Main Content -->
     <div class="content">
@@ -440,7 +440,6 @@ $row_count11 = mysqli_num_rows($result11);
                         </a>
                     </li>
                 </ul>
-
 
                 <div class="tab-content">
                     <!-------------------------dashboard------------------------------>

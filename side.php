@@ -9,7 +9,7 @@
 			} else if ($frole == "Faculty") {
 				include("fside.php");
 			} else if($frole == "infra"){
-				include("cms_iside.php");
+				include("fside.php");
 			}
 			else if ($frole == "DSA") {
 				include("DAside.php");

@@ -782,7 +782,7 @@ $row_count11 = mysqli_num_rows($result11);
 
 <body>
     <!-- Sidebar -->
-    <?php include 'cms_iside.php'; ?>
+    <?php include 'side.php'; ?>
 
     <!-- Main Content -->
     <div class="content">
