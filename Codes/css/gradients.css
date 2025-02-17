@@ -1,0 +1,55 @@
+        /* dashboard card color */
+        
+        .c1{
+            background-image: linear-gradient(to top, #cc208e 0%, #6713d2 100%);
+        }
+
+        .c2 {
+
+            background: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+        }
+
+        .c3 {
+
+            background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
+        }
+
+        .c4 {
+            background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+        }
+
+        .c5 {
+            background-image: linear-gradient(to top, #c79081 0%, #dfa579 100%);
+        }
+
+        .c6 {
+            background-image: linear-gradient(to top, #007adf 0%, #00ecbc 100%);
+        }
+        /* Icons Color */
+
+        .color1 {
+
+            background: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    
+        .color2 {
+    
+            background: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    
+        .color3 {
+    
+            background: linear-gradient(to top, #e8198b 0%, #c7eafd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    
+        .color4 {
+            background-image: linear-gradient(to right, #c1c161 0%, #c1c161 0%, #d4d4b1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }

@@ -1347,7 +1347,7 @@ $notcount = mysqli_num_rows($result4);
                 formData.append('w_name', w_name);
                 formData.append('o_name', o_name);
                 formData.append('p_id', p_id);
-                formData.append('amt', amt);
+                formData.append('amount', amt);
 
                 if (imgAfter) {
                     formData.append('img_after', imgAfter);
@@ -1364,6 +1364,7 @@ $notcount = mysqli_num_rows($result4);
                     contentType: false,
                     processData: false,
                     success: function(response) {
+                        console.log(response);
                         Swal.fire({
                             title: "Updated!",
                             text: "Work is Completed",

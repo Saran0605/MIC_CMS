@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIC HR</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../../image/icons/mkce_s.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-5/bootstrap-5.css" rel="stylesheet">
+
+    <style>
+        .password-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .password-header {
+            text-align: center;
+            color: #0d6efd;
+            margin-bottom: 30px;
+        }
+
+        .form-floating {
+            margin-bottom: 1rem;
+        }
+
+        .password-requirements {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <?php include 'sidebar.php'; ?>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Topbar -->
+        <?php include 'topbar.php'; ?>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-area">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Change Password</li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-- Content Area -->
+        <div class="container-fluid">
+            <div class="password-container">
+                <div class="password-header">
+                    <h2>Change Password</h2>
+                </div>
+
+                <form id="changePasswordForm">
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="currentPassword" name="currentPassword"
+                            placeholder="Current Password" required>
+                        <label for="currentPassword">Current Password</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="newPassword" name="newPassword"
+                            placeholder="New Password" required>
+                        <label for="newPassword">New Password</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                            placeholder="Confirm Password" required>
+                        <label for="confirmPassword">Confirm Password</label>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Change Password</button>
+                    </div>
+
+                    <div class="password-requirements">
+                        <p>Password must contain:</p>
+                        <ul>
+                            <li>At least 8 characters</li>
+                            <li>At least one uppercase letter</li>
+                            <li>At least one lowercase letter</li>
+                            <li>At least one number</li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <?php include '../footer.php'; ?>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            function validatePassword(password) {
+                const minLength = password.length >= 8;
+                const hasUpperCase = /[A-Z]/.test(password);
+                const hasLowerCase = /[a-z]/.test(password);
+                const hasNumber = /\d/.test(password);
+                
+                return minLength && hasUpperCase && hasLowerCase && hasNumber;
+            }
+
+            $('#changePasswordForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                const currentPassword = $('#currentPassword').val().trim();
+                const newPassword = $('#newPassword').val().trim();
+                const confirmPassword = $('#confirmPassword').val().trim();
+
+                // Debug log
+                console.log('Sending request with:', {
+                    currentPassword: currentPassword,
+                    newPassword: newPassword,
+                    action: 'change_password'
+                });
+
+                // Validation checks
+                if (!currentPassword || !newPassword || !confirmPassword) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'All fields are required',
+                        icon: 'error'
+                    });
+                    return;
+                }
+
+                if (newPassword !== confirmPassword) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'New password and confirm password do not match!',
+                        icon: 'error'
+                    });
+                    return;
+                }
+
+                if (!validatePassword(newPassword)) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Password must meet all requirements!',
+                        icon: 'error'
+                    });
+                    return;
+                }
+
+                // Disable submit button and show loading state
+                $('#submitBtn').prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span> Processing...');
+
+                // Ajax request
+                $.ajax({
+                    url: 'principal_leave_back.php', // Using existing backend file
+                    type: 'POST',
+                    data: {
+                        currentPassword: currentPassword,
+                        newPassword: newPassword,
+                        action: 'change_password'
+                    },
+                    success: function(response) {
+                        try {
+                            const result = JSON.parse(response);
+                            if (result.success) {
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: result.message || 'Password changed successfully!',
+                                    icon: 'success'
+                                }).then(() => {
+                                    $('#changePasswordForm')[0].reset();
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: result.message || 'Failed to change password',
+                                    icon: 'error'
+                                });
+                            }
+                        } catch (e) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Invalid server response',
+                                icon: 'error'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Full error details:', {
+                            status: status,
+                            error: error,
+                            responseText: xhr.responseText,
+                            statusText: xhr.statusText
+                        });
+                        
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'An error occurred while changing password: ' + error,
+                            icon: 'error'
+                        });
+                        console.error('Ajax error:', error);
+                    },
+                    complete: function() {
+                        // Re-enable submit button
+                        $('#submitBtn').prop('disabled', false).text('Change Password');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
