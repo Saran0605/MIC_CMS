@@ -1,7 +1,7 @@
 <?php
-require 'config.php';
-include ("session.php");
-$faculty_id = $s;
+require '../../config.php';
+include ("../../session.php");
+$faculty_id = "principal";
 // $role  = $frole;
 // if ($role != "principal") {
 //     header("Location:index.php");
@@ -55,11 +55,11 @@ $result11 = mysqli_query($db, $sql11);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIC</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="image/icons/mkce_s.png">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="tabs.css">
-    <link rel="stylesheet" href="cms_style.css">
-    <link rel="stylesheet" href="dboardstyles.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../image/icons/mkce_s.png">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../tabs.css">
+    <link rel="stylesheet" href="../../cms_style.css">
+    <link rel="stylesheet" href="../../dboardstyles.css">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
@@ -1295,7 +1295,7 @@ $result11 = mysqli_query($db, $sql11);
     </div>
 
 
-    <script src="script.js"></script>
+    <script src="../../script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

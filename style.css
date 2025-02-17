@@ -576,7 +576,8 @@ body {
 }
 
 .modal-header {
-    background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    /* background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%); */
+    background: linear-gradient(135deg, #4CAF50, #2196F3) !important;
     color: white;
     padding: 15px 20px;
     border-bottom: none;

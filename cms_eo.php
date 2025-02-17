@@ -339,7 +339,7 @@ $row_count11 = mysqli_num_rows($result11);
 
 <body>
     <!-- Sidebar -->
-    <?php include 'fside.php'; ?>
+    <?php include 'side.php'; ?>
 
     <!-- Main Content -->
     <div class="content">
@@ -1647,7 +1647,6 @@ $row_count11 = mysqli_num_rows($result11);
                             $('#rejectmodal').modal('hide');
                             $('#rejectdetails')[0].reset();
                             console.error("Error:", res.message);
-                            alert("Something Went wrong.! try again")
                         }
                     },
                     error: function(xhr, status, error) {

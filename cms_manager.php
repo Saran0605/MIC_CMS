@@ -2149,17 +2149,14 @@ $.ajax({
                     $('#complain_table').DataTable();
                 });
 
-            // Display success message
-        } else if (res.status == 500) {
-            $("#rejectModal").modal("hide");
-            $("#rejectForm")[0].reset();
-            alert("Something went wrong. Please try again.");
-        }
-    },
-    error: function(xhr, status, error) {
-        alert("An error occurred while processing your request.");
-    },
-});
+                        // Display success message
+                    } else if (res.status == 500) {
+                        $("#rejectModal").modal("hide");
+                        $("#rejectForm")[0].reset();
+                    }
+                },
+                error: function(xhr, status, error) {},
+            });
 
 sendRejectionMail(reject_id);
 });
@@ -2275,11 +2272,9 @@ $.ajax({
 
 
 
-        } else {
-            alert("Failed to accept complaint");
-        }
-    },
-});
+                    } else {}
+                },
+            });
 
 
 });
@@ -2332,11 +2327,17 @@ $.ajax({
 
 
 
-        } else {
-            alert("Failed to accept complaint");
-        }
-    },
-});
+                    } else {
+                        swal({
+                            title: "Error",
+                            text: "Something went wrong!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: null
+                        });
+                    }
+                },
+            });
 
 // sendApproveMail(comp_id);
 });
@@ -2395,61 +2396,70 @@ $.ajax({
 
 
 
-            // Display success message
-        } else if (res.status == 500) {
-            $("#principalModal").modal("hide");
-            $("#principal_Form")[0].reset();
-            alert("Something went wrong. Please try again.");
-        }
-    },
-    error: function(xhr, status, error) {
-        alert("An error occurred while processing your request.");
-    },
-});
-});
+                        // Display success message
+                    } else if (res.status == 500) {
+                        $("#principalModal").modal("hide");
+                        $("#principal_Form")[0].reset();
+                        swal({
+                            title: "Error",
+                            text: "Something went wrong!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: null
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    swal({
+                        title: "Error",
+                        text: "An error occurred while processing your request.",
+                        icon: "error",
+                        button: "Ok",
+                        timer: null
+                    });
+                },
+            });
+        });
 
 
-//jquerry for view complaint
-$(document).on("click", ".viewcomplaint", function(e) {
-e.preventDefault();
-var user_id = $(this).val();
-var fac_id = $(this).data("value");
-console.log(user_id);
-// Clear the previously entered modal
-$("#id").text("");
-$("#type_of_problem").text("");
-$("#problem_description").text("");
-$("#faculty_name").text("");
-$("#faculty_mail").text("");
-$("#faculty_contact").text("");
-$("#block_venue").text("");
-$("#venue_name").text("");
-$("#fac_name").text("N/A");
-$("#fac_id").text("N/A");
-$.ajax({
-    type: "POST",
-    url: 'cms_backend.php?action=view_complaint',
-    data: {
-        user_id: user_id,
-        fac_id: fac_id,
-    },
-    success: function(response) {
-        var res = jQuery.parseJSON(response);
-        console.log(res);
-        if (res.status == 404) {
-            alert(res.message);
-        } else {
-            //$('#student_id2').val(res.data.uid);
-            $("#id").text(res.data.id);
-            $("#type_of_problem").text(res.data.type_of_problem);
-            $("#problem_description").text(res.data.problem_description);
-            $("#faculty_name").text(res.data.fname);
-            $("#faculty_mail").text(res.data.email);
-            $("#faculty_contact").text(res.data.mobile);
-            $("#block_venue").text(res.data.block_venue);
-            $("#venue_name").text(res.data.venue_name);
-            $("#fac_name").text(res.data1.name);
-            $("#fac_id").text(res.data1.id);
+        //jquerry for view complaint
+        $(document).on("click", ".viewcomplaint", function(e) {
+            e.preventDefault();
+            var user_id = $(this).val();
+            var fac_id = $(this).data("value");
+            console.log(user_id);
+            // Clear the previously entered modal
+            $("#id").text("");
+            $("#type_of_problem").text("");
+            $("#problem_description").text("");
+            $("#faculty_name").text("");
+            $("#faculty_mail").text("");
+            $("#faculty_contact").text("");
+            $("#block_venue").text("");
+            $("#venue_name").text("");
+            $("#fac_name").text("N/A");
+            $("#fac_id").text("N/A");
+            $.ajax({
+                type: "POST",
+                url: 'cms_backend.php?action=view_complaint',
+                data: {
+                    user_id: user_id,
+                    fac_id: fac_id,
+                },
+                success: function(response) {
+                    var res = jQuery.parseJSON(response);
+                    if (res.status == 404) {} else {
+                        //$('#student_id2').val(res.data.uid);
+                        $("#id").text(res.data.id);
+                        $("#type_of_problem").text(res.data.type_of_problem);
+                        $("#problem_description").text(res.data.problem_description);
+                        $("#faculty_name").text(res.data.fname);
+                        $("#faculty_mail").text(res.data.email);
+                        $("#faculty_contact").text(res.data.mobile);
+                        $("#block_venue").text(res.data.block_venue);
+                        $("#venue_name").text(res.data.venue_name);
+                        $("#fac_name").text(res.data1.name);
+                        $("#fac_id").text(res.data1.id);
 
             $("#complaintDetailsModal").modal("show");
         }
@@ -2457,46 +2467,54 @@ $.ajax({
 });
 });
 
-//Before image
-$(document).on("click", ".showImage", function() {
-var problem_id = $(this).val(); // Get the problem_id from button value
-console.log(problem_id); // Ensure this logs correctly
-$.ajax({
-    type: "POST",
-    url: 'cms_backend.php?action=get_image',
-    data: {
-        problem_id: problem_id, // Correct POST key
-    },
-    dataType: "json", // Automatically parses JSON responses
-    success: function(response) {
-        console.log(response); // Log the parsed JSON response
-        if (response.status == 200) {
-            // Dynamically set the image source
-            $("#modalImage").attr("src", "uploads/" + response.data.images);
-            // Show the modal
-            $("#imageModal").modal("show");
-        } else {
-            // Handle case where no image is found
-            alert(
-                response.message ||
-                "An error occurred while retrieving the image."
-            );
-        }
-    },
-    error: function(xhr, status, error) {
-        // Log the full error details for debugging
-        console.error("AJAX Error: ", xhr.responseText);
-        alert(
-            "An error occurred: " +
-            error +
-            "\nStatus: " +
-            status +
-            "\nDetails: " +
-            xhr.responseText
-        );
-    },
-});
-});
+        //Before image
+        $(document).on("click", ".showImage", function() {
+            var problem_id = $(this).val(); // Get the problem_id from button value
+            console.log(problem_id); // Ensure this logs correctly
+            $.ajax({
+                type: "POST",
+                url: 'cms_backend.php?action=get_image',
+                data: {
+                    problem_id: problem_id, // Correct POST key
+                },
+                dataType: "json", // Automatically parses JSON responses
+                success: function(response) {
+                    console.log(response); // Log the parsed JSON response
+                    if (response.status == 200) {
+                        // Dynamically set the image source
+                        $("#modalImage").attr("src", "uploads/" + response.data.images);
+                        // Show the modal
+                        $("#imageModal").modal("show");
+                    } else {
+                        // Handle case where no image is found
+                        swal({
+                            title: "Error",
+                            text: "An Error Occurred while retreiving the image!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: null
+                        });
+
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Log the full error details for debugging
+                    console.error("AJAX Error: ", xhr.responseText);
+                    swal({
+                        title: "Error",
+                        text: "An error occurred: " +
+                            error +
+                            "\nStatus: " +
+                            status +
+                            "\nDetails: " +
+                            xhr.responseText,
+                        icon: "error",
+                        button: "Ok",
+                        timer: null
+                    });
+                },
+            });
+        });
 
 //principal question 
 $(document).ready(function() {
@@ -2520,59 +2538,67 @@ $("#submitReply").on("click", function() {
     var taskId = $(this).data("task-id");
     var commentReply = $("#commentReply").val();
 
-    // AJAX request to send the reply to the backend
-    $.ajax({
-        url: 'cms_backend.php?action=submit_comment_reply', // Your backend file
-        type: "POST",
-        data: {
-            task_id: taskId,
-            comment_reply: commentReply,
-        },
-        success: function(response) {
-            var res = jQuery.parseJSON(response);
-            if (res.status == 200) {
-                alert(res.message);
-                $("#principalQueryModal").modal("hide");
-                // Reload the table to reflect changes
-                $("#worker_table").load(location.href + " #worker_table");
-            } else {
-                alert("Something went wrong. Please try again.");
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("Error:", error);
-            alert("Something went wrong. Please try again.");
-        },
-    });
-});
-});
+                // AJAX request to send the reply to the backend
+                $.ajax({
+                    url: 'cms_backend.php?action=submit_comment_reply', // Your backend file
+                    type: "POST",
+                    data: {
+                        task_id: taskId,
+                        comment_reply: commentReply,
+                    },
+                    success: function(response) {
+                        var res = jQuery.parseJSON(response);
+                        if (res.status == 200) {
+                            $("#principalQueryModal").modal("hide");
+                            // Reload the table to reflect changes
+                            $("#worker_table").load(location.href + " #worker_table");
+                        } else {
+                            swal({
+                                title: "Error",
+                                text: "Something went wrong. Please try again.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error:", error);
+                        swal({
+                                title: "Error",
+                                text: "Something went wrong. Please try again.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                    },
+                });
+            });
+        });
 
 //verify once again
 
 
-$(document).on("click", ".facfeed", function(e) {
-e.preventDefault();
-var user_id = $(this).val();
-console.log(user_id);
-$(document).data("feedid", user_id);
-$.ajax({
-    type: "POST",
-    url: 'cms_backend.php?action=facfeedview',
-    data: {
-        user_id: user_id,
-    },
-    success: function(response) {
-        var res = jQuery.parseJSON(response);
-        console.log(res);
-        if (res.status == 500) {
-            alert(res.message);
-        } else {
-            //$('#student_id2').val(res.data.uid);
-            $("#ffeed").val(res.data.feedback)
-            $("#exampleModal").modal("show");
+        $(document).on("click", ".facfeed", function(e) {
+            e.preventDefault();
+            var user_id = $(this).val();
+            console.log(user_id);
+            $(document).data("feedid", user_id);
+            $.ajax({
+                type: "POST",
+                url: 'cms_backend.php?action=facfeedview',
+                data: {
+                    user_id: user_id,
+                },
+                success: function(response) {
+                    var res = jQuery.parseJSON(response);
+                    if (res.status == 500) {
+                    } else {
+                        //$('#student_id2').val(res.data.uid);
+                        $("#ffeed").val(res.data.feedback)
+                        $("#exampleModal").modal("show");
 
-            var nu = res.data.rating;
-            console.log(nu);
+                        var nu = res.data.rating;
 
             if (!isNaN(nu) && nu > 0) {
                 const stars1 = document.querySelectorAll("#star-rating1 span");
@@ -2609,10 +2635,16 @@ $(document).on("click", ".reass", function() {
 $(document).on("click", "#saveDeadline", function() {
     var reassign_deadline = $("#reassign_deadline").val(); // Get the selected deadline
 
-    if (!reassign_deadline) {
-        alert("Please select a deadline date.");
-        return;
-    }
+                if (!reassign_deadline) {
+                    swal({
+                                title: "Error",
+                                text: "Please select a deadline date.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                    return;
+                }
 
     var complaintfeedId = $("#complaintfeed_id").val();
     updateComplaintStatus(complaintfeedId, 15,
@@ -2643,87 +2675,111 @@ $(document).on("click", "#saveDeadline", function() {
     $("#navref5").load(location.href + " #navref5");
 });
 
-// Function to update the complaint status
-function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
-    $.ajax({
-        type: "POST",
-        url: 'cms_backend.php?action=reassign_work',
-        data: {
-            complaintfeed_id: complaintfeedId,
-            status: status,
-            reassign_deadline: reassign_deadline, // Only pass this when we give 'reassign'
-        },
-        success: function(response) {
-            var res = jQuery.parseJSON(response);
-            if (res.status == 500) {
-                alert(res.message);
+            // Function to update the complaint status
+            function updateComplaintStatus(complaintfeedId, status, reassign_deadline = null) {
+                $.ajax({
+                    type: "POST",
+                    url: 'cms_backend.php?action=reassign_work',
+                    data: {
+                        complaintfeed_id: complaintfeedId,
+                        status: status,
+                        reassign_deadline: reassign_deadline, // Only pass this when we give 'reassign'
+                    },
+                    success: function(response) {
+                        var res = jQuery.parseJSON(response);
+                        if (res.status == 500) {
+                            swal({
+                                title: "Error",
+                                text: "Something went wrong. Please try again.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                        }
+                    },
+                    error: function() {
+                        swal({
+                                title: "Error",
+                                text: "An error occured while updating the status",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                    }
+                });
             }
-        },
-        error: function() {
-            alert("An error occurred while updating the status.");
-        }
-    });
-}
-});
+        });
 
 
-//Reject Reason from principal
-$(document).on("click", ".rejectreasonbtn", function(e) {
-e.preventDefault();
-var id12 = $(this).val();
-console.log(id12);
-$.ajax({
-    type: "POST",
-    url: 'cms_backend.php?action=get_reject_reason',
-    data: {
-        problem_id: id12,
-    },
-    success: function(response) {
-        var res = jQuery.parseJSON(response);
-        console.log(res);
-        if (res.status == 500) {
-            alert(res.message);
-        } else {
-            $("#feedback").text(res.data.feedback);
-        }
-    },
-});
-});
+        //Reject Reason from principal
+        $(document).on("click", ".rejectreasonbtn", function(e) {
+            e.preventDefault();
+            var id12 = $(this).val();
+            console.log(id12);
+            $.ajax({
+                type: "POST",
+                url: 'cms_backend.php?action=get_reject_reason',
+                data: {
+                    problem_id: id12,
+                },
+                success: function(response) {
+                    var res = jQuery.parseJSON(response);
+                    console.log(res);
+                    if (res.status == 500) {
+                        swal({
+                                title: "Error",
+                                text: "Something went wrong. Please try again.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                    } else {
+                        $("#feedback").text(res.data.feedback);
+                    }
+                },
+            });
+        });
 
 
-//after image
-$(document).on("click", ".imgafter", function() {
-var problem_id = $(this).val(); // Get the problem_id from button value
-console.log(problem_id); // Ensure this logs correctly
-$.ajax({
-    type: "POST",
-    url: 'cms_backend.php?action=get_aimage',
-    data: {
-        problem2_id: problem_id, // Correct POST key
-    },
-    dataType: "json", // Automatically parses JSON responses
-    success: function(response) {
-        console.log(response); // Log the parsed JSON response
-        if (response.status == 200) { // Use 'response' instead of 'res'
-            // Dynamically set the image source
-            $("#modalImage2").attr("src", response.data.after_photo);
-            // Show the modal
-            $("#afterImageModal").modal("show");
-        } else {
-            // Handle case where no image is found
-            alert(response.message ||
-                "An error occurred while retrieving the image.");
-        }
-    },
-    error: function(xhr, status, error) {
-        console.error("AJAX Error: ", status, error);
-    }
-});
-});
-$('#afterImageModal').on('hidden.bs.modal', function() {
-// Reset the image source to a default or blank placeholder
-$("#modalImage2").attr("src", "path/to/placeholder_image.jpg");
-});
+        //after image
+        $(document).on("click", ".imgafter", function() {
+            var problem_id = $(this).val(); // Get the problem_id from button value
+            console.log(problem_id); // Ensure this logs correctly
+            $.ajax({
+                type: "POST",
+                url: 'cms_backend.php?action=get_aimage',
+                data: {
+                    problem2_id: problem_id, // Correct POST key
+                },
+                dataType: "json", // Automatically parses JSON responses
+                success: function(response) {
+                    console.log(response); // Log the parsed JSON response
+                    if (response.status == 200) { // Use 'response' instead of 'res'
+                        // Dynamically set the image source
+                        $("#modalImage2").attr("src", response.data.after_photo);
+                        // Show the modal
+                        $("#afterImageModal").modal("show");
+                    } else {
+                        // Handle case where no image is found
+                        swal({
+                                title: "Error",
+                                text: "An error occurred while retrieving the image.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                        
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: ", status, error);
+                }
+            });
+        });
+        $('#afterImageModal').on('hidden.bs.modal', function() {
+            // Reset the image source to a default or blank placeholder
+            $("#modalImage2").attr("src", "path/to/placeholder_image.jpg");
+        });
 
 //to download as xlsheet record table
 document.getElementById('download').addEventListener('click', function() {
@@ -2839,45 +2895,27 @@ $.ajax({
 
 
 
-        } else {
-            alert("Error");
-        }
-    },
-    error: function(xhr, status, error) {
-        alert("An error occurred: " + error);
-    }
-});
-})
-
-$(document).on('click','.activate_user',function(e){
-e.preventDefault();
-var id = $(this).val();
-
-$.ajax({
-    type:"POST",
-    url:'cms_backend.php?action=activate_user',
-    data:{
-        'id':id,
-    },
-    success: function(response) {
-        console.log(response);
-        var res = jQuery.parseJSON(response);
-
-        if(res.status == 200){
-            alertify.set('notifier', 'position', 'top-right');
-            alertify.success('Activated');
-
-            $('#activate_table').DataTable().destroy();
-
-            $("#activate_table").load(location.href + " #activate_table > *",
-                function() {
-                    // Reinitialize the DataTable after the content is loaded
-                    $('#activate_table').DataTable();
-                });
-        }
-    }
-});
-})
+                    } else {
+                        swal({
+                                title: "Error",
+                                text: "Error!",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    swal({
+                                title: "Error",
+                                text: "An error occurred!",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                }
+            });
+        })
 
 $(document).on("click", ".mfeed", function(e) {
 e.preventDefault();
@@ -2937,18 +2975,30 @@ $.ajax({
 
 
 
-            // Display success message
-        } else if (res.status == 500) {
-            $("#DoneModal").modal("hide");
-            alert(res.message);
-        }
-    },
-    error: function(xhr, status, error) {
-        alert("An error occurred while processing your request.");
-    },
-});
-});
-</script>
+                        // Display success message
+                    } else if (res.status == 500) {
+                        $("#DoneModal").modal("hide");
+                        swal({
+                                title: "Error",
+                                text: "An error occurred!",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    swal({
+                                title: "Error",
+                                text: "An error occurred while processing your request.",
+                                icon: "error",
+                                button: "Ok",
+                                timer: null
+                            });
+                },
+            });
+        });
+    </script>
 
 <script>
 // Get today's date in the format 'YYYY-MM-DD'
@@ -3125,24 +3175,30 @@ e.preventDefault();
 var id = $(this).val();
 console.log(id);
 
-$.ajax({
-    type: "POST",
-    url: "cms_backend.php?action=partially_reason",
-    data: {
-        id: id,
-    },
-    success: function(response) {
-        var res = jQuery.parseJSON(response);
-        console.log(response);
-        if (res.status == 404) {
-            alert("something went wrong!!");
-        } else {
-            $("#partiallyReason").text(res.data.reason);
-            $("#partially_reason").modal("show");
-        }
-    }
-})
-});
+            $.ajax({
+                type: "POST",
+                url: "cms_backend.php?action=partially_reason",
+                data: {
+                    id: id,
+                },
+                success: function(response) {
+                    var res = jQuery.parseJSON(response);
+                    console.log(response);
+                    if (res.status == 404) {
+                        swal({
+                            title: "Warning!",
+                            text: "something went wrong!!",
+                            icon: "warning",
+                            button: "Ok",
+                            timer: null
+                        });
+                    } else {
+                        $("#partiallyReason").text(res.data.reason);
+                        $("#partially_reason").modal("show");
+                    }
+                }
+            })
+        });
 
 $(document).on("click", ".fetchdept", function(e) {
 e.preventDefault();
