@@ -1,5 +1,14 @@
-<?php
-include ("session.php");
+<?php //include("h.php"); 
+//require 'fconfig.php';
+
+$query = "SELECT id,dept,role FROM faculty WHERE id='$s'";
+$query_run = mysqli_query($db, $query);
+if (mysqli_num_rows($query_run) > 0) {
+    $row = mysqli_fetch_assoc($query_run);
+    $dept = $row['dept'];
+    $role = $row['role'];
+    $fac_id = $row['id'];
+}
 ?>
 <style>
     /* Sidebar Styles */
@@ -248,41 +257,49 @@ include ("session.php");
             <span>Student</span>
         </a>
         <?php
-        if($s=="1141014"){
+        if ($fac_id == 1141014) {
         ?>
-        <a href="cms_eo.php" class="menu-item">
-            <i class="fas fa-user-graduate text-warning"></i>
-            <span>Complaints</span>
+        <a href="cms_eo.php" class="menu-item active">
+            <i class="fas fa-exclamation-triangle icon-feedback"></i>
+            <span>Greivances</span>
         </a>
         <?php
         }
         ?>
         <?php
-        if($s=="principal"){
+        if ($fac_id == 1112001) {
+
         ?>
-        <a href="cms_principal.php" class="menu-item">
-            <i class="fas fa-user-graduate text-warning"></i>
-            <span>Complaints</span>
+        <a href="cms_manager.php" class="menu-item active">
+            <i class="fas fa-exclamation-triangle icon-feedback"></i>
+            <span>Greivances</span>
         </a>
         <?php
         }
         ?>
         <?php
-        if($s!="1141014" and $s!="1112001"){
-            ?>
-            <a href="cms_eo.php" class="menu-item">
-            <i class="fas fa-user-graduate text-warning"></i>
-            <span>Complaints</span>
+
+        $infraquery = "SELECT * FROM faculty WHERE role='infra' AND id='$fac_id'";
+        $infraqueryrun = mysqli_query($db, $infraquery);
+        ?>
+        <?php
+        if (mysqli_num_rows($infraqueryrun) > 0) {
+
+        ?>
+        <a href="cms_infra.php" class="menu-item active">
+            <i class="fas fa-exclamation-triangle icon-feedback"></i>
+            <span>Greivances</span>
         </a>
         <?php
         }
         ?>
+
         <?php
-        if($s=="1112001"){
-            ?>
-            <a href="cms_manager.php" class="menu-item">
-            <i class="fas fa-user-graduate text-warning"></i>
-            <span>Complaints</span>
+        if ($fac_id != 1141014 && $fac_id != 1112001 && mysqli_num_rows($infraqueryrun) == 0) {
+        ?>
+        <a href="cms_faculty.php" class="menu-item active">
+            <i class="fas fa-exclamation-triangle icon-feedback"></i>
+            <span>Greivances</span>
         </a>
         <?php
         }
