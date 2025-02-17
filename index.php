@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $redirectUrl = "dash.php";
                     break;
                 case "principal":
-                    $redirectUrl = "cms_principal.php";
+                    $redirectUrl = "Codes/Principal/dash.php";
                     break;
                 case "busadmin":
                     $redirectUrl = "busadmin2/dashboard";
@@ -75,6 +75,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 case "civil":
                     $redirectUrl = "cms_windex.php";
                     break;
+                    case "electrical":
+                        $redirectUrl = "cms_windex.php";
+                        break;
+                        case "itkm":
+                            $redirectUrl = "cms_windex.php";
+                            break;
+                            case "transport":
+                                $redirectUrl = "cms_windex.php";
+                                break;
+                                case "home":
+                                    $redirectUrl = "cms_windex.php";
+                                    break;
                 default:
                     $redirectUrl = "main.php";
             }

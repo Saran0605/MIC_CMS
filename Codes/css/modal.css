@@ -1,0 +1,97 @@
+        /* Modal Styling with Wow Effect */
+        .modal {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-dialog {
+            transition: all 0.3s ease-in-out;
+            transform: scale(0.7);
+            opacity: 0;
+        }
+
+        .modal.show .modal-dialog {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            border: none;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 15px 20px;
+            border-bottom: none;
+        }
+
+        .modal-header .modal-title {
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header .btn-close {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            opacity: 1;
+            width: 30px;
+            height: 30px;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
+            background-size: 30%;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .modal-header .btn-close:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .modal-header .btn-close:focus {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+            outline: none;
+        }
+
+        .modal-body {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .modal-body p {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .modal-body p strong {
+            color: #2575fc;
+        }
+
+        .modal-body .badge {
+            font-size: 0.9em;
+            padding: 5px 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animate entrance */
+        @keyframes modalEnter {
+            0% {
+                opacity: 0;
+                transform: scale(0.7) translateY(-50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal.show .modal-dialog {
+            animation: modalEnter 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
