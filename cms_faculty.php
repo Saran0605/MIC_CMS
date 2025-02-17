@@ -1062,25 +1062,7 @@ if (isset($_POST['facdet'])) {
         </div>
     </div>
 
-    <!-- Worker Details Modal -->
-    <div class="modal fade" id="workerModal" tabindex="-1" aria-labelledby="workerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="workerModalLabel">Worker Phone</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="p-3 bg-light border rounded">
-                        <p><strong>Contact:</strong> <span id="workerContact"></span></p>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <a href="#" id="callWorkerBtn" class="btn btn-success">Call Worker</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
     <!-- Feedback Modal -->
     <div class="modal fade" id="feedback_modal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">

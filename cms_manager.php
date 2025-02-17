@@ -1914,7 +1914,7 @@ aria-hidden="true">
 </div>
 
 <!-- Worker Detail Modal -->
-<div class="modal fade" id="workerdetailmodal" tabindex="-1" aria-labelledby="workerdetailmodalLabel"
+<div class="modal fade" id="" tabindex="-1" aria-labelledby="workerdetailmodalLabel"
 aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered">
 <div class="modal-content">
@@ -3261,4 +3261,4 @@ $.ajax({
 
 </body>
 
-</html>
+</html>     
