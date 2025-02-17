@@ -1730,12 +1730,10 @@ $row_count11 = mysqli_num_rows($result11);
                             $('#rejectmodal').modal('hide');
                             $('#rejectdetails')[0].reset();
                             console.error("Error:", res.message);
-                            alert("Something Went wrong.! try again")
                         }
                     },
                     error: function(xhr, status, error) {
                         console.error("AJAX error:", error);
-                        alert("An error occurred: " + error);
                     }
                 });
 
@@ -1872,12 +1870,10 @@ $row_count11 = mysqli_num_rows($result11);
                         $('#navref4').load(location.href + " #navref4");
                     } else {
                         console.error("Error:", res.message);
-                        alert("Something went wrong! Try again.");
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("AJAX Error:", textStatus, errorThrown);
-                    alert("Failed to process response. Please try again.");
                 }
             });
         });
@@ -1897,7 +1893,6 @@ $row_count11 = mysqli_num_rows($result11);
                     var res = jQuery.parseJSON(response);
                     console.log(res)
                     if (res.status == 500) {
-                        alert(res.message);
                     } else {
                         $("#id").text(res.data.id);
                         $("#type_of_problem").text(res.data.type_of_problem);
@@ -1964,7 +1959,6 @@ $row_count11 = mysqli_num_rows($result11);
                         $('#bmodalImage').modal('show');
                     } else {
                         $('#modalImage').hide();
-                        alert(response.message);
                     }
                 },
                 error: function(xhr, status, error) {

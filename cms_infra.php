@@ -2262,7 +2262,6 @@ $row_count11 = mysqli_num_rows($result11);
                         $('#bmodalImage').modal('show');
                     } else {
                         $('#modalImage').hide();
-                        alert(response.message);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -2355,7 +2354,6 @@ $row_count11 = mysqli_num_rows($result11);
                     var res = jQuery.parseJSON(response);
                     console.log(res);
                     if (res.status == 500) {
-                        alert(res.message);
                     } else {
                         let rejectionReason = "";
                         switch (res.data2.status) {
@@ -2409,7 +2407,7 @@ $row_count11 = mysqli_num_rows($result11);
                             timer: null
                         });
                         $('#hod_approval').modal('hide');
-                            
+
 
                         $('#myTable1').DataTable().destroy();
                         $('#myTable2').DataTable().destroy();
@@ -2458,71 +2456,65 @@ $row_count11 = mysqli_num_rows($result11);
 
         $('.rejectdetails').on('submit', function(e) {
             e.preventDefault();
-            console.log("Form submitted for rejection");
 
-            if (confirm('Are you sure you want to reject this complaint?')) {
-                var formdata1 = new FormData(this);
-                var reject_id = $(document).data("user_id_reject"); // Get the stored user ID
+            var formdata1 = new FormData(this);
+            var reject_id = $(document).data("user_id_reject"); // Get the stored user ID
 
-                if (!reject_id) {
-                    alert("Error: Reject ID is missing.");
-                    return;
-                }
-
-                formdata1.append("reject_id", reject_id);
-
-                $.ajax({
-                    type: "POST",
-                    url: 'cms_backend.php?action=infrejectbtn',
-                    data: formdata1,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        var res = jQuery.parseJSON(response);
-                        if (res.status == 200) {
-                            $('#rejectmodal').modal('hide');
-                            $('.rejectdetails')[0].reset();
-                            $('#myTable1').DataTable().destroy();
-                            $('#myTable2').DataTable().destroy();
-                            $('#myTable3').DataTable().destroy();
-                            $('#myTable4').DataTable().destroy();
-                            $('#feedbackTable').DataTable().destroy();
-                            $("#myTable1").load(location.href + " #myTable1 > *", function() {
-                                $('#myTable1').DataTable();
-                            });
-                            $("#myTable2").load(location.href + " #myTable2 > *", function() {
-                                $('#myTable2').DataTable();
-                            });
-                            $("#myTable3").load(location.href + " #myTable3 > *", function() {
-                                $('#myTable3').DataTable();
-                            });
-                            $("#myTable4").load(location.href + " #myTable3 > *", function() {
-                                $('#myTable3').DataTable();
-                            });
-                            $("#feedbackTable").load(location.href + " #feedbackTable > *", function() {
-                                $('#feedbackTable').DataTable();
-                            });
-                            $('#navref1').load(location.href + " #navref1");
-                            $('#navref2').load(location.href + " #navref2");
-                            $('#navref3').load(location.href + " #navref3");
-                            $('#navref33').load(location.href + " #navref3");
-                            $('#navref4').load(location.href + " #navref4");
-                            console.log("Complaint rejected successfully!");
-                        } else {
-                            alertify.error('Complaint Rejected!');
-                            console.error("Error:", res.message);
-                            alert("Something went wrong! Try again.");
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX error:", error);
-                        alert("An error occurred: " + error);
-                    }
-                });
-
-                // Call the mail function separately after the rejection request
-                sendRejectionMail(reject_id);
+            if (!reject_id) {
+                alert("Error: Reject ID is missing.");
+                return;
             }
+
+            formdata1.append("reject_id", reject_id);
+
+            $.ajax({
+                type: "POST",
+                url: 'cms_backend.php?action=infrejectbtn',
+                data: formdata1,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    var res = jQuery.parseJSON(response);
+                    if (res.status == 200) {
+                        $('#rejectmodal').modal('hide');
+                        $('.rejectdetails')[0].reset();
+                        $('#myTable1').DataTable().destroy();
+                        $('#myTable2').DataTable().destroy();
+                        $('#myTable3').DataTable().destroy();
+                        $('#myTable4').DataTable().destroy();
+                        $('#feedbackTable').DataTable().destroy();
+                        $("#myTable1").load(location.href + " #myTable1 > *", function() {
+                            $('#myTable1').DataTable();
+                        });
+                        $("#myTable2").load(location.href + " #myTable2 > *", function() {
+                            $('#myTable2').DataTable();
+                        });
+                        $("#myTable3").load(location.href + " #myTable3 > *", function() {
+                            $('#myTable3').DataTable();
+                        });
+                        $("#myTable4").load(location.href + " #myTable3 > *", function() {
+                            $('#myTable3').DataTable();
+                        });
+                        $("#feedbackTable").load(location.href + " #feedbackTable > *", function() {
+                            $('#feedbackTable').DataTable();
+                        });
+                        $('#navref1').load(location.href + " #navref1");
+                        $('#navref2').load(location.href + " #navref2");
+                        $('#navref3').load(location.href + " #navref3");
+                        $('#navref33').load(location.href + " #navref3");
+                        $('#navref4').load(location.href + " #navref4");
+                        console.log("Complaint rejected successfully!");
+                    } else {
+                        console.error("Error:", res.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                }
+            });
+
+            // Call the mail function separately after the rejection request
+            sendRejectionMail(reject_id);
+
         });
 
         // Function to send mail
