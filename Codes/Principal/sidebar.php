@@ -132,8 +132,8 @@
 <div class="mobile-overlay" id="mobileOverlay"></div>
 <div class="sidebar" id="sidebar">
     <div class="logo">
-        <img src="../../../images/mkce.png" alt="College Logo">
-        <img class='s_logo' src="../../../images/mkce_s.png" alt="College Logo">
+        <img src="../image/mkce.png" alt="College Logo">
+        <img class='s_logo' src="../image/icons/mkce_s.png" alt="College Logo">
     </div>
 
     <div class="menu">
@@ -189,7 +189,7 @@
                 <span>Report</span>
             </a>
         </div>
-        <a href="/cms_principal.php" class="menu-item">
+        <a href="cms_principal.php" class="menu-item">
             <i class="fas fa-home text-primary"></i>
             <span>Grievances</span>
         </a>
