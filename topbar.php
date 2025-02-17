@@ -254,7 +254,7 @@ if (mysqli_num_rows($query_run) == 1) {
             </a>
         </div>
     </div>
-    <span><?php echo $name; ?></span>
+    <span><?php echo $s; ?></span>
 </div>
 
         </div>
